@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>VLOO Host Availability Layers</title>
+    <style>
+      :root {
+        --ink: #0a2633;
+        --muted: #5d717a;
+        --bg: #f4f8f9;
+        --surface: #ffffff;
+        --line: #ccdde5;
+        --line-strong: #9dbdcc;
+        --brand: #006988;
+        --brand-dark: #074159;
+        --blue-soft: #e0f0fb;
+        --green-soft: #e4f3ee;
+        --amber-soft: #fff3dd;
+        --coral: #e95848;
+        --shadow: 0 18px 44px rgba(7, 39, 57, .16);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          linear-gradient(180deg, #ffffff 0%, var(--bg) 48%, #edf4f6 100%);
+        color: var(--ink);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      button, select { font: inherit; }
+      button { cursor: pointer; }
+      h1, h2, h3, p { margin-top: 0; }
+
+      .page {
+        width: min(1440px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 24px 0 36px;
+      }
+
+      .backline {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 18px;
+        color: var(--brand-dark);
+        font-size: 14px;
+        font-weight: 850;
+      }
+
+      .backline span {
+        display: grid;
+        width: 28px;
+        height: 28px;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--surface);
+        color: var(--brand);
+        font-size: 22px;
+      }
+
+      .topbar {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 20px;
+        align-items: end;
+        margin-bottom: 18px;
+      }
+
+      .eyebrow {
+        margin-bottom: 6px;
+        color: var(--brand);
+        font-size: 13px;
+        font-weight: 850;
+      }
+
+      h1 {
+        margin-bottom: 7px;
+        font-size: clamp(30px, 4vw, 46px);
+        line-height: 1.03;
+        letter-spacing: 0;
+      }
+
+      .lead {
+        max-width: 780px;
+        margin-bottom: 0;
+        color: var(--muted);
+        line-height: 1.52;
+      }
+
+      .space-select {
+        width: min(310px, 100%);
+        border: 1px solid var(--line-strong);
+        border-radius: 8px;
+        background: var(--surface);
+        color: var(--ink);
+        padding: 10px 12px;
+        font-weight: 700;
+      }
+
+      .workspace {
+        display: block;
+      }
+
+      .layer-rail {
+        display: grid;
+        grid-template-columns: 36px minmax(0, 1fr) 36px;
+        align-items: center;
+        gap: 6px;
+        border-bottom: 1px solid var(--line);
+        background: #f8fbfc;
+        padding: 10px 14px;
+      }
+
+      .layer-switch {
+        display: flex;
+        gap: 6px;
+        min-width: 0;
+        overflow-x: auto;
+      }
+
+      .layer-card {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        width: auto;
+        min-height: 38px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--surface);
+        padding: 8px 11px;
+        text-align: center;
+        color: var(--ink);
+        box-shadow: none;
+        white-space: nowrap;
+      }
+
+      .layer-card.active {
+        border-color: var(--brand);
+        background: var(--blue-soft);
+        box-shadow: 0 0 0 3px rgba(0, 105, 136, .12);
+      }
+
+      .layer-top {
+        display: contents;
+      }
+
+      .layer-number {
+        display: grid;
+        width: 22px;
+        height: 22px;
+        place-items: center;
+        border-radius: 999px;
+        background: var(--blue-soft);
+        color: var(--brand);
+        font-size: 12px;
+        font-weight: 950;
+      }
+
+      .active .layer-number {
+        background: var(--brand);
+        color: #fff;
+      }
+
+      .layer-status {
+        display: none;
+      }
+
+      .active .layer-status {
+        background: var(--green-soft);
+        color: #1f6f54;
+      }
+
+      .layer-card h2 {
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.15;
+      }
+
+      .layer-card p {
+        display: none;
+      }
+
+      .layer-meta {
+        display: none;
+      }
+
+      .tag {
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 4px 8px;
+        background: #fbfdfe;
+        color: #496470;
+        font-size: 11px;
+        font-weight: 850;
+      }
+
+      .frame-shell {
+        overflow: hidden;
+        border: 1px solid var(--line-strong);
+        border-radius: 8px;
+        background: var(--surface);
+        box-shadow: var(--shadow);
+      }
+
+      .frame-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        border-bottom: 1px solid var(--line);
+        background: #fbfdfe;
+        padding: 12px 14px;
+      }
+
+      .crumbs {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-width: 0;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 850;
+      }
+
+      .crumbs strong {
+        overflow: hidden;
+        color: var(--ink);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .frame-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .icon-button {
+        display: grid;
+        width: 36px;
+        height: 36px;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--surface);
+        color: var(--brand);
+        font-size: 20px;
+        font-weight: 850;
+      }
+
+      .prototype-frame {
+        display: block;
+        width: 100%;
+        height: min(920px, calc(100vh - 238px));
+        min-height: 690px;
+        border: 0;
+        background: #072739;
+      }
+
+      @media (max-width: 1080px) {
+        .prototype-frame {
+          height: 760px;
+        }
+      }
+
+      @media (max-width: 760px) {
+        .page {
+          width: min(100% - 20px, 1440px);
+          padding-top: 18px;
+        }
+
+        .topbar,
+        .frame-head {
+          grid-template-columns: 1fr;
+        }
+
+        .space-select {
+          width: 100%;
+        }
+
+        .prototype-frame {
+          height: 720px;
+          min-height: 620px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <div class="backline"><span>‹</span> Space Manager</div>
+
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Availability page</p>
+          <h1>Booking layers</h1>
+          <p class="lead">One availability workspace connects the default Space Manager calendar, Extended Stay request review, and the flexible calendar impact preview.</p>
+        </div>
+        <select class="space-select" aria-label="Select space">
+          <option>VLOO Workspace - Oslo</option>
+          <option>Meeting Hub - Bergen</option>
+          <option>Studio Desk Area</option>
+        </select>
+      </header>
+
+      <section class="workspace" aria-label="Availability layer workspace">
+        <section class="frame-shell" aria-label="Selected layer prototype">
+          <div class="frame-head">
+            <div class="crumbs">
+              <span>Availability</span>
+              <span>/</span>
+              <strong id="activeLayerName">Space Manager booking calendar</strong>
+            </div>
+          </div>
+
+          <nav class="layer-rail" aria-label="Availability layers">
+            <button class="icon-button" type="button" id="previousLayer" aria-label="Previous layer">‹</button>
+            <div class="layer-switch">
+              <button class="layer-card active" type="button" data-layer="default">
+                <div class="layer-top">
+                  <span class="layer-number">1</span>
+                  <span class="layer-status">Default</span>
+                </div>
+                <h2>Availability</h2>
+                <p>Host opens, closes, and adjusts available desks for flexible stays.</p>
+                <div class="layer-meta">
+                  <span class="tag">May 2026</span>
+                  <span class="tag">Availability</span>
+                </div>
+              </button>
+
+              <button class="layer-card" type="button" data-layer="requests">
+                <div class="layer-top">
+                  <span class="layer-number">2</span>
+                  <span class="layer-status">Review</span>
+                </div>
+                <h2>Requests</h2>
+                <p>Host reviews long-stay requests before applying their booking impact.</p>
+                <div class="layer-meta">
+                  <span class="tag">Incoming</span>
+                  <span class="tag">Approve or reject</span>
+                </div>
+              </button>
+
+              <button class="layer-card" type="button" data-layer="flex">
+                <div class="layer-top">
+                  <span class="layer-number">3</span>
+                  <span class="layer-status">Impact</span>
+                </div>
+                <h2>Flex preview</h2>
+                <p>Host checks remaining capacity and conflicts after a request is applied.</p>
+                <div class="layer-meta">
+                  <span class="tag">June 2026</span>
+                  <span class="tag">Conflict check</span>
+                </div>
+              </button>
+            </div>
+            <button class="icon-button" type="button" id="nextLayer" aria-label="Next layer">›</button>
+          </nav>
+
+          <iframe
+            class="prototype-frame"
+            id="prototypeFrame"
+            title="Space Manager booking calendar"
+            src="host-portal-flex-booking-calendar-prototype.html"
+          ></iframe>
+        </section>
+      </section>
+    </main>
+
+    <script>
+      const layers = [
+        {
+          id: "default",
+          name: "Space Manager booking calendar",
+          title: "Space Manager booking calendar",
+          src: "host-portal-flex-booking-calendar-prototype.html"
+        },
+        {
+          id: "requests",
+          name: "Extended Stay requests",
+          title: "Extended Stay request review",
+          src: "host-portal-extended-stay-calendar-prototype.html?view=request"
+        },
+        {
+          id: "flex",
+          name: "Flexible calendar preview",
+          title: "Flexible calendar impact preview",
+          src: "host-portal-extended-stay-calendar-prototype.html?view=flex"
+        }
+      ];
+
+      const layerButtons = [...document.querySelectorAll(".layer-card")];
+      const frame = document.querySelector("#prototypeFrame");
+      const activeLayerName = document.querySelector("#activeLayerName");
+      const previousLayer = document.querySelector("#previousLayer");
+      const nextLayer = document.querySelector("#nextLayer");
+      let activeIndex = 0;
+
+      function setLayer(layerId) {
+        const nextIndex = layers.findIndex((layer) => layer.id === layerId);
+        activeIndex = nextIndex >= 0 ? nextIndex : 0;
+        const layer = layers[activeIndex];
+
+        layerButtons.forEach((button) => button.classList.toggle("active", button.dataset.layer === layer.id));
+        activeLayerName.textContent = layer.name;
+        frame.title = layer.title;
+        frame.src = layer.src;
+      }
+
+      layerButtons.forEach((button) => {
+        button.addEventListener("click", () => setLayer(button.dataset.layer));
+      });
+
+      previousLayer.addEventListener("click", () => {
+        setLayer(layers[(activeIndex + layers.length - 1) % layers.length].id);
+      });
+
+      nextLayer.addEventListener("click", () => {
+        setLayer(layers[(activeIndex + 1) % layers.length].id);
+      });
+    </script>
+  </body>
+</html>
