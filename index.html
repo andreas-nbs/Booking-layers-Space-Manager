@@ -6,19 +6,19 @@
     <title>VLOO Host Availability Layers</title>
     <style>
       :root {
-        --ink: #0a2633;
-        --muted: #5d717a;
-        --bg: #f4f8f9;
-        --surface: #ffffff;
-        --line: #ccdde5;
-        --line-strong: #9dbdcc;
+        --ink: #f4fbff;
+        --muted: #c8dce6;
+        --bg: #072739;
+        --surface: #082f42;
+        --line: #a8c8e0;
+        --line-strong: #a8d5ed;
         --brand: #006988;
-        --brand-dark: #074159;
-        --blue-soft: #e0f0fb;
+        --brand-dark: #e0f0fb;
+        --blue-soft: rgba(168, 213, 237, .16);
         --green-soft: #e4f3ee;
         --amber-soft: #fff3dd;
         --coral: #e95848;
-        --shadow: 0 18px 44px rgba(7, 39, 57, .16);
+        --shadow: 0 18px 44px rgba(0, 0, 0, .22);
       }
 
       * { box-sizing: border-box; }
@@ -27,7 +27,8 @@
         margin: 0;
         min-height: 100vh;
         background:
-          linear-gradient(180deg, #ffffff 0%, var(--bg) 48%, #edf4f6 100%);
+          radial-gradient(circle at top left, rgba(128, 209, 246, .14), transparent 30%),
+          linear-gradient(180deg, #082f42 0%, var(--bg) 100%);
         color: var(--ink);
         font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       }
@@ -57,9 +58,9 @@
         width: 28px;
         height: 28px;
         place-items: center;
-        border: 1px solid var(--line);
+        border: 2px solid rgba(168, 213, 237, .78);
         border-radius: 999px;
-        background: var(--surface);
+        background: rgba(8, 47, 66, .72);
         color: var(--brand);
         font-size: 22px;
       }
@@ -74,7 +75,7 @@
 
       .eyebrow {
         margin-bottom: 6px;
-        color: var(--brand);
+        color: #80d1f6;
         font-size: 13px;
         font-weight: 850;
       }
@@ -95,10 +96,10 @@
 
       .space-select {
         width: min(310px, 100%);
-        border: 1px solid var(--line-strong);
-        border-radius: 8px;
-        background: var(--surface);
-        color: var(--ink);
+        border: 3px solid var(--line-strong);
+        border-radius: 12px;
+        background: rgba(8, 47, 66, .72);
+        color: #f4fbff;
         padding: 10px 12px;
         font-weight: 700;
       }
@@ -112,8 +113,8 @@
         grid-template-columns: 36px minmax(0, 1fr) 36px;
         align-items: center;
         gap: 6px;
-        border-bottom: 1px solid var(--line);
-        background: #f8fbfc;
+        border-bottom: 3px solid var(--line-strong);
+        background: #072739;
         padding: 10px 14px;
       }
 
@@ -130,20 +131,20 @@
         gap: 8px;
         width: auto;
         min-height: 38px;
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        background: var(--surface);
+        border: 3px solid var(--line-strong);
+        border-radius: 12px;
+        background: rgba(8, 47, 66, .72);
         padding: 8px 11px;
         text-align: center;
-        color: var(--ink);
+        color: #f4fbff;
         box-shadow: none;
         white-space: nowrap;
       }
 
       .layer-card.active {
-        border-color: var(--brand);
+        border-color: #80d1f6;
         background: var(--blue-soft);
-        box-shadow: 0 0 0 3px rgba(0, 105, 136, .12);
+        box-shadow: 0 0 0 3px rgba(128, 209, 246, .15);
       }
 
       .layer-top {
@@ -156,15 +157,15 @@
         height: 22px;
         place-items: center;
         border-radius: 999px;
-        background: var(--blue-soft);
-        color: var(--brand);
+        background: rgba(128, 209, 246, .16);
+        color: #80d1f6;
         font-size: 12px;
         font-weight: 950;
       }
 
       .active .layer-number {
-        background: var(--brand);
-        color: #fff;
+        background: #80d1f6;
+        color: #072739;
       }
 
       .layer-status {
@@ -202,9 +203,9 @@
 
       .frame-shell {
         overflow: hidden;
-        border: 1px solid var(--line-strong);
-        border-radius: 8px;
-        background: var(--surface);
+        border: 3px solid var(--line-strong);
+        border-radius: 14px;
+        background: #072739;
         box-shadow: var(--shadow);
       }
 
@@ -213,8 +214,8 @@
         align-items: center;
         justify-content: space-between;
         gap: 14px;
-        border-bottom: 1px solid var(--line);
-        background: #fbfdfe;
+        border-bottom: 3px solid var(--line-strong);
+        background: #072739;
         padding: 12px 14px;
       }
 
@@ -223,14 +224,14 @@
         align-items: center;
         gap: 8px;
         min-width: 0;
-        color: var(--muted);
+        color: #c8dce6;
         font-size: 13px;
         font-weight: 850;
       }
 
       .crumbs strong {
         overflow: hidden;
-        color: var(--ink);
+        color: #f4fbff;
         text-overflow: ellipsis;
         white-space: nowrap;
       }
@@ -246,10 +247,10 @@
         width: 36px;
         height: 36px;
         place-items: center;
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        background: var(--surface);
-        color: var(--brand);
+        border: 3px solid var(--line-strong);
+        border-radius: 10px;
+        background: rgba(8, 47, 66, .72);
+        color: #80d1f6;
         font-size: 20px;
         font-weight: 850;
       }
