@@ -29,7 +29,7 @@
         margin: 0;
         min-height: 100vh;
         background:
-          linear-gradient(180deg, #ffffff 0%, var(--bg) 48%, #edf4f6 100%);
+          linear-gradient(180deg, #082f42 0%, #072739 100%);
         color: var(--ink);
         font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       }
@@ -38,32 +38,249 @@
       button { cursor: pointer; }
       h1, h2, h3, p { margin-top: 0; }
 
+      .portal {
+        display: grid;
+        grid-template-columns: 260px minmax(0, 1fr);
+        gap: 24px;
+        min-height: 100vh;
+        padding: 28px;
+      }
+
+      .sidebar {
+        align-self: start;
+        display: grid;
+        gap: 28px;
+        min-height: calc(100vh - 56px);
+        border-radius: 14px;
+        background: rgba(3, 35, 52, .72);
+        padding: 22px 18px;
+      }
+
+      .brand-lockup {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 54px;
+        border-radius: 10px;
+        background: #117d96;
+        color: #fff;
+        font-size: 26px;
+        font-weight: 950;
+        letter-spacing: 3px;
+      }
+
+      .brand-lockup small {
+        margin-left: 5px;
+        font-size: 12px;
+        letter-spacing: 0;
+      }
+
+      .side-nav {
+        display: grid;
+        gap: 12px;
+      }
+
+      .side-link {
+        display: grid;
+        grid-template-columns: 28px minmax(0, 1fr);
+        align-items: center;
+        gap: 12px;
+        min-height: 50px;
+        border-radius: 8px;
+        padding: 11px 14px;
+        color: #f4fbff;
+        font-weight: 850;
+      }
+
+      .side-link.active {
+        background: #b7d7eb;
+        color: #092e42;
+      }
+
+      .side-icon {
+        display: grid;
+        width: 28px;
+        height: 28px;
+        place-items: center;
+        font-size: 18px;
+      }
+
+      .mobile-menu-button {
+        display: none;
+        position: fixed;
+        top: 14px;
+        right: 14px;
+        z-index: 40;
+        width: 44px;
+        height: 44px;
+        place-items: center;
+        border: 2px solid #a8c8e0;
+        border-radius: 999px;
+        background: rgba(3, 35, 52, .92);
+        color: #fff;
+        font-size: 22px;
+        font-weight: 900;
+        box-shadow: 0 12px 28px rgba(0, 0, 0, .28);
+      }
+
+      .drawer-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 45;
+        display: none;
+        background: rgba(0, 0, 0, .34);
+      }
+
+      .mobile-drawer {
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 50;
+        display: grid;
+        gap: 22px;
+        width: min(330px, calc(100% - 44px));
+        height: 100vh;
+        overflow-y: auto;
+        background: #06293b;
+        padding: 18px;
+        transform: translateX(100%);
+        transition: transform .22s ease;
+        box-shadow: -22px 0 46px rgba(0, 0, 0, .28);
+      }
+
+      .drawer-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+      }
+
+      .drawer-close {
+        display: grid;
+        width: 40px;
+        height: 40px;
+        place-items: center;
+        border: 2px solid #a8c8e0;
+        border-radius: 999px;
+        background: transparent;
+        color: #fff;
+        font-size: 22px;
+      }
+
+      body.menu-open {
+        overflow: hidden;
+      }
+
+      body.menu-open .drawer-backdrop {
+        display: block;
+      }
+
+      body.menu-open .mobile-drawer {
+        transform: translateX(0);
+      }
+
       .page {
-        width: min(1440px, calc(100% - 32px));
-        margin: 0 auto;
-        padding: 24px 0 36px;
+        width: 100%;
+        min-width: 0;
+        margin: 0;
+        padding: 12px 0 36px;
       }
 
       .backline {
         display: inline-flex;
         align-items: center;
-        gap: 10px;
-        margin-bottom: 18px;
-        color: var(--brand-dark);
-        font-size: 14px;
+        gap: 18px;
+        margin-bottom: 20px;
+        color: #f4fbff;
+        font-size: clamp(32px, 2.4vw, 40px);
         font-weight: 850;
+        line-height: 1;
       }
 
       .backline span {
+        display: block;
+        width: auto;
+        height: auto;
+        border: 0;
+        border-radius: 0;
+        color: #f4fbff;
+        font-size: clamp(40px, 2.6vw, 46px);
+        font-weight: 400;
+        line-height: .8;
+      }
+
+      .manager-panel {
+        border-radius: 14px;
+        background: rgba(3, 35, 52, .72);
+        padding: 34px;
+      }
+
+      .manager-panel h1 {
+        color: #f4fbff;
+      }
+
+      .manager-panel .lead {
+        color: #c8dce6;
+      }
+
+      .progress {
         display: grid;
-        width: 28px;
-        height: 28px;
-        place-items: center;
-        border: 1px solid var(--line);
+        gap: 14px;
+        margin-bottom: 28px;
+      }
+
+      .progress-line {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        width: min(920px, calc(100% - 80px));
+        margin: 0 auto;
+      }
+
+      .progress-segment {
+        height: 4px;
+        background: #d8e8ef;
+      }
+
+      .progress-segment.done {
+        background: #117d96;
+      }
+
+      .progress-dots {
+        display: flex;
+        justify-content: space-between;
+        width: min(920px, calc(100% - 80px));
+        margin: -24px auto 0;
+      }
+
+      .progress-dot {
+        width: 16px;
+        height: 16px;
         border-radius: 999px;
-        background: var(--surface);
-        color: var(--brand);
-        font-size: 22px;
+        background: #979fa4;
+      }
+
+      .progress-dot.done,
+      .progress-dot.current {
+        background: #117d96;
+      }
+
+      .progress-labels {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+        color: #f4fbff;
+        font-size: 19px;
+        font-weight: 850;
+      }
+
+      .progress-labels span:nth-child(2) {
+        text-align: center;
+      }
+
+      .progress-labels span:nth-child(3) {
+        color: #c8dce6;
+        text-align: right;
       }
 
       .topbar {
@@ -83,7 +300,7 @@
 
       h1 {
         margin-bottom: 7px;
-        font-size: clamp(30px, 4vw, 46px);
+        font-size: clamp(28px, 3vw, 40px);
         line-height: 1.03;
         letter-spacing: 0;
       }
@@ -265,15 +482,105 @@
         background: #072739;
       }
 
+      .finish-actions {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 18px;
+      }
+
+      .finish-button {
+        min-width: 148px;
+        min-height: 48px;
+        border: 1px solid #4c85b1;
+        border-radius: 8px;
+        background: #4c85b1;
+        color: #fff;
+        padding: 12px 18px;
+        font-weight: 850;
+      }
+
+      .finish-button:hover {
+        border-color: #3e6f94;
+        background: #3e6f94;
+      }
+
       @media (max-width: 1080px) {
+        .portal {
+          grid-template-columns: 1fr;
+          padding: 18px;
+        }
+
+        .sidebar {
+          grid-template-columns: 160px minmax(0, 1fr);
+          align-items: center;
+          min-height: 0;
+          gap: 12px;
+          padding: 14px;
+        }
+
+        .side-nav {
+          display: flex;
+          gap: 8px;
+          min-width: 0;
+          overflow-x: auto;
+        }
+
+        .side-link {
+          flex: 0 0 auto;
+          min-height: 44px;
+          white-space: nowrap;
+        }
+
+        .mobile-drawer .side-nav {
+          display: grid;
+          overflow: visible;
+        }
+
+        .mobile-drawer .side-link {
+          flex: initial;
+          white-space: normal;
+        }
+
         .prototype-frame {
           height: 760px;
         }
       }
 
       @media (max-width: 760px) {
+        .portal {
+          padding: 10px;
+        }
+
+        .mobile-menu-button {
+          display: grid;
+        }
+
+        .sidebar {
+          display: none;
+        }
+
+        .sidebar,
+        .progress-labels {
+          grid-template-columns: 1fr;
+        }
+
+        .progress-labels span,
+        .progress-labels span:nth-child(2),
+        .progress-labels span:nth-child(3) {
+          text-align: left;
+        }
+
+        .manager-panel {
+          padding: 18px;
+        }
+
+        .backline {
+          padding-right: 56px;
+          font-size: 32px;
+        }
+
         .page {
-          width: min(100% - 20px, 1440px);
+          width: 100%;
           padding-top: 18px;
         }
 
@@ -290,90 +597,156 @@
           height: 720px;
           min-height: 620px;
         }
+
+        .finish-actions {
+          justify-content: stretch;
+        }
+
+        .finish-button {
+          width: 100%;
+        }
       }
     </style>
   </head>
   <body>
-    <main class="page">
-      <div class="backline"><span>‹</span> Space Manager</div>
+    <button class="mobile-menu-button" type="button" id="openMenu" aria-label="Open menu">☰</button>
+    <div class="drawer-backdrop" id="drawerBackdrop"></div>
+    <aside class="mobile-drawer" id="mobileDrawer" aria-label="Mobile host portal navigation">
+      <div class="drawer-top">
+        <div class="brand-lockup">VLOO<small>Pro</small></div>
+        <button class="drawer-close" type="button" id="closeMenu" aria-label="Close menu">×</button>
+      </div>
+      <nav class="side-nav">
+        <div class="side-link active"><span class="side-icon">▦</span><span>Space manager</span></div>
+        <div class="side-link"><span class="side-icon">□</span><span>Messages</span></div>
+        <div class="side-link"><span class="side-icon">◉</span><span>Account</span></div>
+        <div class="side-link"><span class="side-icon">▤</span><span>Analytics</span></div>
+        <div class="side-link"><span class="side-icon">▣</span><span>Payments</span></div>
+        <div class="side-link"><span class="side-icon">◈</span><span>Security and Privacy</span></div>
+        <div class="side-link"><span class="side-icon">?</span><span>Contact</span></div>
+        <div class="side-link"><span class="side-icon">↪</span><span>Log out</span></div>
+      </nav>
+    </aside>
 
-      <header class="topbar">
-        <div>
-          <p class="eyebrow">Availability page</p>
-          <h1>Booking layers</h1>
-          <p class="lead">One availability workspace connects the default Space Manager calendar, Extended Stay request review, and the flexible calendar impact preview.</p>
-        </div>
-        <select class="space-select" aria-label="Select space">
-          <option>VLOO Workspace - Oslo</option>
-          <option>Meeting Hub - Bergen</option>
-          <option>Studio Desk Area</option>
-        </select>
-      </header>
+    <div class="portal">
+      <aside class="sidebar" aria-label="Host portal navigation">
+        <div class="brand-lockup">VLOO<small>Pro</small></div>
+        <nav class="side-nav">
+          <div class="side-link active"><span class="side-icon">▦</span><span>Space manager</span></div>
+          <div class="side-link"><span class="side-icon">□</span><span>Messages</span></div>
+          <div class="side-link"><span class="side-icon">◉</span><span>Account</span></div>
+          <div class="side-link"><span class="side-icon">▤</span><span>Analytics</span></div>
+          <div class="side-link"><span class="side-icon">▣</span><span>Payments</span></div>
+          <div class="side-link"><span class="side-icon">◈</span><span>Security and Privacy</span></div>
+          <div class="side-link"><span class="side-icon">?</span><span>Contact</span></div>
+          <div class="side-link"><span class="side-icon">↪</span><span>Log out</span></div>
+        </nav>
+      </aside>
 
-      <section class="workspace" aria-label="Availability layer workspace">
-        <section class="frame-shell" aria-label="Selected layer prototype">
-          <div class="frame-head">
-            <div class="crumbs">
+      <main class="page">
+        <div class="backline"><span>←</span> Add Space</div>
+
+        <section class="manager-panel">
+          <div class="progress" aria-label="Space manager progress">
+            <div class="progress-line">
+              <div class="progress-segment done"></div>
+              <div class="progress-segment done"></div>
+            </div>
+            <div class="progress-dots">
+              <span class="progress-dot done"></span>
+              <span class="progress-dot done"></span>
+              <span class="progress-dot current"></span>
+            </div>
+            <div class="progress-labels">
+              <span>Space details</span>
+              <span>Workspace details</span>
               <span>Availability</span>
-              <span>/</span>
-              <strong id="activeLayerName">Space Manager booking calendar</strong>
             </div>
           </div>
 
-          <nav class="layer-rail" aria-label="Availability layers">
-            <button class="icon-button" type="button" id="previousLayer" aria-label="Previous layer">‹</button>
-            <div class="layer-switch">
-              <button class="layer-card active" type="button" data-layer="default">
-                <div class="layer-top">
-                  <span class="layer-number">1</span>
-                  <span class="layer-status">Default</span>
-                </div>
-                <h2>Availability</h2>
-                <p>Host opens, closes, and adjusts available desks for flexible stays.</p>
-                <div class="layer-meta">
-                  <span class="tag">May 2026</span>
-                  <span class="tag">Availability</span>
-                </div>
-              </button>
-
-              <button class="layer-card" type="button" data-layer="requests">
-                <div class="layer-top">
-                  <span class="layer-number">2</span>
-                  <span class="layer-status">Review</span>
-                </div>
-                <h2>Requests</h2>
-                <p>Host reviews long-stay requests before applying their booking impact.</p>
-                <div class="layer-meta">
-                  <span class="tag">Incoming</span>
-                  <span class="tag">Approve or reject</span>
-                </div>
-              </button>
-
-              <button class="layer-card" type="button" data-layer="flex">
-                <div class="layer-top">
-                  <span class="layer-number">3</span>
-                  <span class="layer-status">Impact</span>
-                </div>
-                <h2>View live calendar</h2>
-                <p>Host checks remaining capacity and conflicts after a request is applied.</p>
-                <div class="layer-meta">
-                  <span class="tag">June 2026</span>
-                  <span class="tag">Conflict check</span>
-                </div>
-              </button>
+          <header class="topbar">
+            <div>
+              <p class="eyebrow">Availability page</p>
+              <h1>Booking layers</h1>
+              <p class="lead">One availability workspace connects the default Space Manager calendar, Extended Stay request review, and the flexible calendar impact preview.</p>
             </div>
-            <button class="icon-button" type="button" id="nextLayer" aria-label="Next layer">›</button>
-          </nav>
+            <select class="space-select" aria-label="Select space">
+              <option>VLOO Workspace - Oslo</option>
+              <option>Meeting Hub - Bergen</option>
+              <option>Studio Desk Area</option>
+            </select>
+          </header>
 
-          <iframe
-            class="prototype-frame"
-            id="prototypeFrame"
-            title="Space Manager booking calendar"
-            src="host-portal-flex-booking-calendar-prototype.html"
-          ></iframe>
+          <section class="workspace" aria-label="Availability layer workspace">
+            <section class="frame-shell" aria-label="Selected layer prototype">
+              <div class="frame-head">
+                <div class="crumbs">
+                  <span>Availability</span>
+                  <span>/</span>
+                  <strong id="activeLayerName">Space Manager booking calendar</strong>
+                </div>
+              </div>
+
+              <nav class="layer-rail" aria-label="Availability layers">
+                <button class="icon-button" type="button" id="previousLayer" aria-label="Previous layer">‹</button>
+                <div class="layer-switch">
+                  <button class="layer-card active" type="button" data-layer="default">
+                    <div class="layer-top">
+                      <span class="layer-number">1</span>
+                      <span class="layer-status">Default</span>
+                    </div>
+                    <h2>Availability</h2>
+                    <p>Host opens, closes, and adjusts available desks for flexible stays.</p>
+                    <div class="layer-meta">
+                      <span class="tag">May 2026</span>
+                      <span class="tag">Availability</span>
+                    </div>
+                  </button>
+
+                  <button class="layer-card" type="button" data-layer="requests">
+                    <div class="layer-top">
+                      <span class="layer-number">2</span>
+                      <span class="layer-status">Review</span>
+                    </div>
+                    <h2>Requests</h2>
+                    <p>Host reviews long-stay requests before applying their booking impact.</p>
+                    <div class="layer-meta">
+                      <span class="tag">Incoming</span>
+                      <span class="tag">Approve or reject</span>
+                    </div>
+                  </button>
+
+                  <button class="layer-card" type="button" data-layer="flex">
+                    <div class="layer-top">
+                      <span class="layer-number">3</span>
+                      <span class="layer-status">Impact</span>
+                    </div>
+                    <h2>View live calendar</h2>
+                    <p>Host checks remaining capacity and conflicts after a request is applied.</p>
+                    <div class="layer-meta">
+                      <span class="tag">June 2026</span>
+                      <span class="tag">Conflict check</span>
+                    </div>
+                  </button>
+                </div>
+                <button class="icon-button" type="button" id="nextLayer" aria-label="Next layer">›</button>
+              </nav>
+
+              <iframe
+                class="prototype-frame"
+                id="prototypeFrame"
+                title="Space Manager booking calendar"
+                src="host-portal-flex-booking-calendar-prototype.html?v=2"
+              ></iframe>
+            </section>
+          </section>
+
+          <div class="finish-actions">
+            <button class="finish-button" type="button">Finish</button>
+          </div>
         </section>
-      </section>
-    </main>
+      </main>
+    </div>
 
     <script>
       const layers = [
@@ -381,7 +754,7 @@
           id: "default",
           name: "Space Manager booking calendar",
           title: "Space Manager booking calendar",
-          src: "host-portal-flex-booking-calendar-prototype.html"
+          src: "host-portal-flex-booking-calendar-prototype.html?v=2"
         },
         {
           id: "requests",
@@ -402,6 +775,9 @@
       const activeLayerName = document.querySelector("#activeLayerName");
       const previousLayer = document.querySelector("#previousLayer");
       const nextLayer = document.querySelector("#nextLayer");
+      const openMenu = document.querySelector("#openMenu");
+      const closeMenu = document.querySelector("#closeMenu");
+      const drawerBackdrop = document.querySelector("#drawerBackdrop");
       let activeIndex = 0;
 
       function setLayer(layerId) {
@@ -426,6 +802,16 @@
       nextLayer.addEventListener("click", () => {
         setLayer(layers[(activeIndex + 1) % layers.length].id);
       });
+
+      function closeMobileMenu() {
+        document.body.classList.remove("menu-open");
+      }
+
+      openMenu.addEventListener("click", () => {
+        document.body.classList.add("menu-open");
+      });
+      closeMenu.addEventListener("click", closeMobileMenu);
+      drawerBackdrop.addEventListener("click", closeMobileMenu);
     </script>
   </body>
 </html>
