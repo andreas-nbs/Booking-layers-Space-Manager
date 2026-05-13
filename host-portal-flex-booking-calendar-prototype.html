@@ -11,6 +11,8 @@
         --ink: #072739;
         --surface: #e0f0fb;
         --border: #a8c8e0;
+        --field-bg: #0b3447;
+        --field-border: #a8c8e0;
         --brand: #006988;
         --cta: #4c85b1;
         --cta-hover: #3e6f94;
@@ -33,26 +35,26 @@
 
       .page { width: min(1180px, calc(100% - 32px)); margin: 0 auto; padding: 32px 0 56px; }
       .backline { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 18px; color: var(--surface); font-weight: 750; }
-      .backline span { display: grid; width: 28px; height: 28px; place-items: center; border: 1px solid rgba(224, 240, 251, .18); border-radius: 999px; color: #80d1f6; }
+      .backline span { display: grid; width: 28px; height: 28px; place-items: center; border: 2px solid rgba(168, 200, 224, .74); border-radius: 999px; color: #80d1f6; }
       .topbar { display: flex; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
       .eyebrow { margin: 0 0 6px; color: #80d1f6; font-size: 13px; font-weight: 650; }
       h1, h2, p { margin-top: 0; }
       h1 { margin-bottom: 8px; font-size: clamp(28px, 4vw, 42px); line-height: 1.05; }
       .lead { max-width: 660px; margin-bottom: 0; color: #c8dce6; line-height: 1.55; }
-      .space-select, input { border: 1px solid rgba(168, 200, 224, .55); border-radius: 8px; background: #fff; padding: 11px 12px; color: var(--ink); }
+      .space-select, input { border: 3px solid var(--field-border); border-radius: 12px; background: var(--field-bg); padding: 11px 14px; color: #fff; }
       .space-select {
         min-width: 250px;
-        height: 38px;
-        padding: 6px 12px;
+        height: 42px;
+        padding: 6px 14px;
         line-height: 20px;
       }
       .summary { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 16px; }
-      .metric { border: 1px solid rgba(168, 200, 224, .22); border-radius: 8px; background: rgba(8, 47, 66, .72); padding: 16px; }
+      .metric { border: 2px solid rgba(168, 200, 224, .68); border-radius: 12px; background: rgba(8, 47, 66, .72); padding: 16px; }
       .metric span { display: block; color: var(--border); font-size: 13px; font-weight: 650; }
       .metric strong { display: block; margin-top: 8px; font-size: 24px; }
       .layout { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(340px, .75fr); gap: 16px; align-items: start; }
-      .section { overflow: hidden; border: 1px solid rgba(168, 200, 224, .24); border-radius: 8px; background: var(--panel); box-shadow: 0 18px 46px rgba(0, 0, 0, .18); }
-      .section-head { display: flex; justify-content: space-between; gap: 18px; border-bottom: 1px solid rgba(168, 200, 224, .18); padding: 18px 20px; }
+      .section { overflow: hidden; border: 2px solid rgba(168, 200, 224, .68); border-radius: 12px; background: var(--panel); box-shadow: 0 18px 46px rgba(0, 0, 0, .18); }
+      .section-head { display: flex; justify-content: space-between; gap: 18px; border-bottom: 2px solid rgba(168, 200, 224, .56); padding: 18px 20px; }
       .section h2 { margin-bottom: 6px; font-size: 19px; }
       .section p { margin-bottom: 0; color: #c8dce6; font-size: 14px; line-height: 1.45; }
       .month-controls { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
@@ -62,8 +64,8 @@
       .weekdays, .days { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; }
       .weekdays { margin-bottom: 8px; }
       .weekday { color: var(--ink); font-size: 12px; font-weight: 750; text-align: center; }
-      .day { min-height: 92px; border: 1px solid #eef2f3; border-radius: 8px; background: #fff; color: var(--ink); padding: 9px; text-align: left; cursor: pointer; }
-      .day:hover { border-color: var(--brand); background: #f8fdff; }
+      .day { min-height: 92px; border: 2px solid #e3edf2; border-radius: 10px; background: #fff; color: var(--ink); padding: 9px; text-align: left; cursor: pointer; }
+      .day:hover { border-color: var(--field-border); background: #f8fdff; }
       .day.empty { visibility: hidden; }
       .day.closed { background: #f7f8f9; color: #87959b; }
       .day.selected { border-color: var(--brand); background: var(--brand); color: #fff; box-shadow: 0 0 0 3px rgba(0, 105, 136, .18); }
@@ -78,24 +80,24 @@
       .form, .selected-list { padding: 18px 20px 20px; }
       .field { margin-bottom: 16px; }
       .status-choice { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
-      .status-option { border: 1px solid rgba(168, 200, 224, .38); border-radius: 8px; background: rgba(224, 240, 251, .08); padding: 10px 12px; color: var(--surface); font-weight: 750; cursor: pointer; }
-      .status-option.active { border-color: #a0c6f8; background: var(--pill); color: #fff; }
+      .status-option { border: 2px solid rgba(168, 200, 224, .72); border-radius: 12px; background: rgba(11, 52, 71, .84); padding: 10px 12px; color: var(--surface); font-weight: 750; cursor: pointer; }
+      .status-option.active { border-color: var(--field-border); background: var(--pill); color: #fff; }
       label { display: block; margin-bottom: 8px; color: var(--surface); font-size: 13px; font-weight: 760; }
-      input { width: 100%; border: 2px solid #1598b5; outline: none; }
-      input:focus { border-color: #118fad; box-shadow: 0 0 0 3px rgba(21, 152, 181, .18); }
+      input { width: 100%; outline: none; }
+      input:focus, .space-select:focus { border-color: #c7e1f1; box-shadow: 0 0 0 3px rgba(168, 200, 224, .18); }
       .actions { display: flex; gap: 10px; flex-wrap: wrap; }
       .primary, .secondary { border-radius: 8px; padding: 11px 14px; font-weight: 760; cursor: pointer; }
       .primary { border: 1px solid var(--cta); background: var(--cta); color: #fff; }
       .primary:hover { border-color: var(--cta-hover); background: var(--cta-hover); }
-      .secondary { border: 1px solid rgba(168, 200, 224, .38); background: transparent; color: var(--surface); }
+      .secondary { border: 2px solid rgba(168, 200, 224, .72); background: transparent; color: var(--surface); }
       .notice { margin-top: 14px; border-radius: 8px; background: #f4c6a7; padding: 11px 12px; color: #4d321f; font-size: 13px; line-height: 1.45; }
       .notice.success { background: rgba(128, 209, 246, .16); color: #c7efff; }
       .selected-list { display: grid; gap: 10px; }
-      .selected-row { display: grid; grid-template-columns: minmax(0, 1fr) 104px 32px; gap: 10px; align-items: center; border: 1px solid rgba(168, 200, 224, .24); border-radius: 8px; background: rgba(224, 240, 251, .06); padding: 10px; }
+      .selected-row { display: grid; grid-template-columns: minmax(0, 1fr) 104px 32px; gap: 10px; align-items: center; border: 2px solid rgba(168, 200, 224, .64); border-radius: 12px; background: rgba(11, 52, 71, .84); padding: 10px; }
       .date-title { display: block; color: #fff; font-size: 14px; font-weight: 800; }
       .date-subtitle { display: block; margin-top: 3px; color: var(--border); font-size: 12px; }
       .mini-input { padding: 8px 10px; }
-      .remove { display: grid; width: 32px; height: 32px; place-items: center; border: 1px solid rgba(168, 200, 224, .35); border-radius: 8px; background: rgba(255,255,255,.06); color: var(--danger); cursor: pointer; }
+      .remove { display: grid; width: 32px; height: 32px; place-items: center; border: 2px solid rgba(168, 200, 224, .72); border-radius: 10px; background: rgba(255,255,255,.06); color: var(--danger); cursor: pointer; }
 
       @media (max-width: 920px) {
         .topbar, .layout { display: grid; grid-template-columns: 1fr; }
@@ -116,11 +118,8 @@
   </head>
   <body>
     <main class="page">
-      <div class="backline"><span>‹</span> Booking Calendar</div>
-
       <header class="topbar">
         <div>
-          <p class="eyebrow">Space Manager</p>
           <h1>Flexible stays</h1>
           <p class="lead">Manage which days are open for Flexible Stay bookings and set how many desks can be booked on selected dates.</p>
         </div>
